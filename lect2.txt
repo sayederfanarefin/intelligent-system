@@ -1,0 +1,48 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Description:  SPARC program for the family problem in lecture 2  (fall 2018)
+%% Author:  Yuanlin Zhang
+%% Online SPARC website: http://wave.ttu.edu/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+sorts
+    #people = {john, bill, jim, joan, sam}.
+    
+predicates
+    % father(X, Y) denotes that person X is the father of Y
+    father(#people, #people).
+    
+    % mother(X, Y) denotes that person X is the mother of Y
+    mother(#people, #people).
+    
+    % dad(X, Y) denotes that X is the dad of Y
+    dad(#people, #people).
+    
+    % patent(X, Y) denotes that person X is a parent of Y
+    parent(#people, #people). 
+    
+rules
+    % john is the father bill
+    father(john, bill).
+    
+    %Joan is the mother of bill and sam.
+    %% A sentence with conjunctive information. 
+    mother(joan, bill). 
+    mother(joan, sam). 
+    
+    % for all X and Y, X is the dad of Y if X is the 
+    %                   father of Y. 
+    %% simple rule. 
+    dad(X, Y) :-  father(X, Y). 
+    
+    % for all X and Y, X is a parent of Y if X is the father of Y
+    %		or X is the mother of Y
+    parent(X, Y) :- father(X, Y). 
+    parent(X, Y) :- mother(X, Y).
+    
+    % questions and queries
+    % Is John the father of Bill?  father(john, bill)?
+    % Is John the dad of Bill? dad(john, bill)? 
+    % Who is Billâ€™s parent? parent(Who, bill)?
+    % Who is the father of Bill? father(Who, bill)? or father(X, bill)? (Any variable works)
+    % Whom is John  the father of ? father(john, Whom)? 
+   

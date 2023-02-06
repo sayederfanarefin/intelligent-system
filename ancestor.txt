@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Description:  SPARC program for ancestor
+%% Author:  Sayed Erfan Arefin
+%% Online SPARC website: http://wave.ttu.edu/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+sorts
+    #people = {john, bill, jim, joan, sam, erfan, saber, taif, jalaluddin}.
+    
+predicates
+    % father(X, Y) denotes that person X is the father of Y
+    father(#people, #people).
+    
+    % mother(X, Y) denotes that person X is the mother of Y
+    mother(#people, #people).
+    
+    % patent(X, Y) denotes that person X is a parent of Y
+    parent(#people, #people). 
+    
+    ancestor(#people, #people).
+    
+rules
+    % john is the father bill
+    father(john, bill).
+    father(bill, jim).
+    
+    father(jalaluddin, saber).
+    father(saber, erfan).
+    father(erfan, taif).
+    
+    
+    %Joan is the mother of bill and sam.
+    %% A sentence with conjunctive information. 
+    mother(joan, bill). 
+    mother(joan, sam). 
+    
+    
+    
+    % for all X and Y, X is a parent of Y if X is the father of Y
+    %		or X is the mother of Y
+    parent(X, Y) :- father(X, Y). 
+    parent(X, Y) :- mother(X, Y).
+    
+    ancestor(X, Y) :- parent(X, Y).
+    ancestor(X, Y) :- parent(X, X1), ancestor(X1, Y).
+    
+    
+    % questions and queries
+    % Is jalaluddin the ancestor of taif?  ancestor(jalaluddin, taif)?
+    
+   
