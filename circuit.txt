@@ -1,0 +1,97 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Description:  Circuit Problem
+%% Author:  Sayed Erfan Arefin
+%% Online SPARC website: http://wave.ttu.edu/
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% I used nat as not gate, ad as and gate and ar as or gate.
+sorts
+    
+    #gates = {g0, g1, g2}.
+    #wires = {w0, w1, w2, w3, w4, w5}.
+    #typeofgates = {nat, ad, ar}.
+    #signal = {0, 1}.
+    
+    
+predicates
+    % input_wire(G, W) denotes that wire W is the input of G
+    input_wire(#gates, #wires).
+    
+    % output_wire(G, W) denotes that wire W is the output of G
+    output_wire(#gates, #wires).
+    
+    % val(W, V) denotes that the signal on wire W is V
+    val(#wires, #signal).
+    
+    %type(G, T) denotes that the type of gate G, is T (and, not, or). 
+    type(#gates, #typeofgates).
+    
+    opposite(#signal, #signal).
+    
+    someInputWis0(#gates).
+    allInputWis1(#gates).
+    someInputWis1(#gates).
+     allInputWis0(#gates).
+    
+rules
+    %not rules:
+    val(Wo, V) :- output_wire(G, Wo), type(G, nat), input_wire(G, Wi), val(Wi, Vi), opposite(V, Vi).
+    
+    % opposite rules:
+    opposite(0, 1).
+    opposite(1, 0).
+    
+    
+    %and gate rules:
+    % the value of the output wire of an and gate is 1
+    % if that of all input wires is 1.
+    val(W, 1) :- type(G, ad), output_wire(G, W), allInputWis1(G).
+    
+    % allInputWis1(G): all input wires of gate G is 1.
+    allInputWis1(G) :- not someInputWis0(G).
+    
+    % someInputWis0(G): some input wire of G is 0.
+    someInputWis0(G) :- val(W, 0), input_wire(G, W).
+    
+    % the value of the and gate will be 0 if some input is 0.
+    val(W, 0) :- type(G, ad), output_wire(G, W), someInputWis0(G).
+    
+    
+    
+    
+    %or gate rules:
+    %the output wire of an or gate is 0 if we do not know (or cannot derive from the program) that its is 1.
+    val(W, 0) :- type(G, ar), output_wire(G, W), allInputWis0(G).
+    
+    % allInputWis0(G): all input wires of gate G is 0.
+    allInputWis0(G) :- not someInputWis1(G).
+    
+    % someInputWis1(G): some input wire of G is 1.
+    someInputWis1(G) :- val(W, 1), input_wire(G, W).
+    
+    % the value of the or gate will be 1 if some input is 1.
+    val(W, 1) :- type(G, ar), output_wire(G, W), someInputWis1(G).
+    
+    
+    %not gate (g0) connections based on the circuit from lecture slide:
+    output_wire(g0, w1).
+    input_wire(g0, w0).
+    type(g0, nat).
+    
+    % and gate (g1) connections based on the circuit from the lecture slide:
+    output_wire(g1, w4).
+    input_wire(g1, w1).
+    input_wire(g1, w2).
+    input_wire(g1, w3).
+    type(g1, ad).
+    
+    % or gate (g2) connections based on the circuit from the lecture slide:
+    output_wire(g2, w5).
+    input_wire(g2, w4).
+    input_wire(g2, w3).
+    type(g2, ar).
+    
+    %sample input for w0 is 1 from slide
+    val(w0, 1).
+    val(w2, 1).
+    val(w3, 0).

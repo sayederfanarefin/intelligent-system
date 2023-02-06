@@ -47,5 +47,49 @@ rules
     
     % questions and queries
     % Is jalaluddin the ancestor of taif?  ancestor(jalaluddin, taif)?
-    
+    % ancestor(jalaluddin,X) returns:
+%     The answers to query ancestor(jalaluddin,X) are
+% X = saber
+% X = erfan
+% X = taif
    
+   
+   
+   
+   
+%       You asked for ALL answer sets of your program.
+
+% mother
+% Lit
+% mother(	joan	, bill	)	.
+% mother(	joan	, sam	)	.
+% parent
+% Lit
+% parent(	john	, bill	)	.
+% parent(	bill	, jim	)	.
+% parent(	jalaluddin	, saber	)	.
+% parent(	saber	, erfan	)	.
+% parent(	erfan	, taif	)	.
+% parent(	joan	, bill	)	.
+% parent(	joan	, sam	)	.
+% father
+% Lit
+% father(	john	, bill	)	.
+% father(	bill	, jim	)	.
+% father(	jalaluddin	, saber	)	.
+% father(	saber	, erfan	)	.
+% father(	erfan	, taif	)	.
+% ancestor
+% Lit
+% ancestor(	john	, bill	)	.
+% ancestor(	bill	, jim	)	.
+% ancestor(	jalaluddin	, saber	)	.
+% ancestor(	saber	, erfan	)	.
+% ancestor(	erfan	, taif	)	.
+% ancestor(	joan	, bill	)	.
+% ancestor(	joan	, sam	)	.
+% ancestor(	john	, jim	)	.
+% ancestor(	joan	, jim	)	.
+% ancestor(	jalaluddin	, erfan	)	.
+% ancestor(	saber	, taif	)	.
+% ancestor(	jalaluddin	, taif	)	.
